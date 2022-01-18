@@ -7,7 +7,8 @@ import {BrowserRouter as Router} from "react-router-dom"
 import configureStore from './redux/configureStore'
 import { Provider } from 'react-redux';
 
-const store = configureStore([]);
+const initialState: any = [];
+const store = configureStore(initialState);
 
 ReactDOM.render(
   <Provider store={store} > 
