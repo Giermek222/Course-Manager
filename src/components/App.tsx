@@ -11,7 +11,7 @@ import CoursesPage from './courses/CoursesPage';
 function App() {
   
   return (
-    <div className="App">
+    <div className="container-fluid">
       
       <Header/>
       <Routes >
