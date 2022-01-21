@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {createCourse, loadCourses } from "../../redux/actions/courseActions";
 import { useEffect } from "react";
+import CourseList from "./CourseList";
 
 const CoursesPage = (props : any) => {
 
@@ -12,13 +13,11 @@ const CoursesPage = (props : any) => {
     
 
     return (
-<>
-        
+    <div>        
         <h2>Courses Page</h2>
-        
-        {props.courses.map((course: { title: string}) => 
-            <div key={course.title} >{course.title}</div>)}
-   </>
+        <CourseList courses={props.courses}/>
+    </div>
+
     )
 }
 
