@@ -1,41 +1,31 @@
-    import { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import createCourse from "../../redux/actions/courseActions";
+import {createCourse, loadCourses } from "../../redux/actions/courseActions";
+import { useEffect } from "react";
 
 const CoursesPage = (props : any) => {
 
-    const [course, changeCourse] = useState({title: ''});
-
-    const handleChange = (event : any) => {
-        changeCourse({...course, title: event.target.value})
-    }
-
-    const handleSubmit = (event:any) => {
-        event.preventDefault();
-        props.createCourse(course)
-    }
+    useEffect (() => {
+        props.loadCourses().catch((error : any) => {alert("Loading courses failed" + error);});
+    }, [])
+        
+    
 
     return (
-    <form onSubmit={(event) => handleSubmit(event)}>
+<>
+        
         <h2>Courses Page</h2>
-        <h3>Add course</h3>
-        <input
-        type="text"
-        placeholder="add course name"
-        value={course.title}
-        onChange={(event) => handleChange(event)}
-        />
-        <input type='submit' value='save'/>
+        
         {props.courses.map((course: { title: string}) => 
             <div key={course.title} >{course.title}</div>)}
-    </form>
+   </>
     )
 }
 
 CoursesPage.propTypes = {
     courses: PropTypes.array.isRequired,
-    createCourse: PropTypes.func
+    createCourse: PropTypes.func,
+    loadCourses: PropTypes.func
 };
   
 function mapStateToProps(state: any) {
@@ -45,9 +35,13 @@ function mapStateToProps(state: any) {
 }
 
 function  mapDispatchToProps(dispatch : any) {
+    console.log("I am also here")
     return {
-        createCourse: (course: object) => dispatch(createCourse(course)) 
+        createCourse: (course: object) => dispatch(createCourse(course)),
+        loadCourses: () => dispatch(loadCourses()) 
     }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(CoursesPage)
+
+
